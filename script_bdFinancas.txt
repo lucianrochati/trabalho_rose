@@ -1,0 +1,32 @@
+create database financas;
+
+create table usuario 
+(
+  idUsuario int NOT NULL AUTO_INCREMENT,
+  nomeUsuario varchar (30) NOT NULL,
+  login varchar (20) NOT NULL,
+  senha varchar (10) NOT NULL,
+  constraint PK_usuario primary key (idUsuario)
+);
+
+create table tipo
+(
+  idTipo int NOT NULL AUTO_INCREMENT,
+  descTipo varchar (30) NOT NULL,
+  constraint PK_tipo primary key (idTipo)
+);
+
+create table receitaDespesa
+(
+  idReceitaDespesa int NOT NULL AUTO_INCREMENT,
+  idTipo int NOT NULL,
+  idUsuario int NOT NULL,
+  descReceitaDespesa varchar(30) NOT NULL,
+  vaLor float NOT NULL,
+  data varchar (10) NOT NULL,
+  constraint PK_receitaDespesa  primary key (idReceitaDespesa),
+  constraint FK_usuario foreign key (idUsuario) references
+         usuario (idUsuario),
+  constraint FK_tipo foreign key (idTipo) references
+         tipo (idTipo)
+);

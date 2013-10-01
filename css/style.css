@@ -1,0 +1,11 @@
+@import url("bootstrap.min.css");
+@CHARSET "UTF-8";
+.container{
+	margin: 0 auto;
+	width: 256px;
+	margin-top: 25%;
+}
+.form-inline .btn{
+	margin-top: 10px;
+	float:right;
+}

@@ -1,8 +1,16 @@
-<?php require 'header.php';?>
+<?php 
+ini_set("display_errors",1);
+  require 'header.php';
+  require '../includes/Receitas.php';    
+
+  $receitas = new Receitas("3,4");
+  $dados = $receitas->listarReceitas();
+?>
 <div class="container" style="margin-top:0px; ">
   <?php require 'menu.php';?>
   <div class="meio">
-  <h2>Listando todas as Despesas</h2><br>
+  <h2>Listando todas as Receitas</h2><br>
+   
     <table class="table table-striped" style="margin-top:10px;">
       <tr>
             <th>Código</th>
@@ -14,15 +22,30 @@
             <th>Ações</th>
           </tr>
      <tbody>
+         <?php 
+          if($dados != ""){
+            foreach($dados as $k => $get){
+
+          ?>
+
           <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Receita</td>
-            <td>Pagamento boleto</td>
-            <td>R$1.000,00</td>
-            <td>25/10/2013</td>
-            <td><span class="glyphicon glyphicon-edit"></span></td>
-          </tr>
+            <td><?php echo $get->getCodigo();?></td>
+            <td><?php echo $get->getIdUsuario();?></td>
+            <td><?php echo $get->getTipo();?></td>
+            <td><?php echo $get->getDescricao();?></td>
+            <td><?php echo $get->getValor();?></td>
+            <td><?php echo $get->getData();?></td>
+            <td>
+                <span class="glyphicon glyphicon-edit"></span>
+                <span class="glyphicon glyphicon-remove"></span>
+            </td>
+            
+       
+        <?php }
+          }else{?>
+          <td>Nenhuma receita encontrada</td>
+          <?php }?>
+             </tr>
         </tbody>
     </table>
   </div>

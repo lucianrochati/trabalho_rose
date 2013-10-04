@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	print_r($_SERVER);
 	require 'admin/header.php';
 	require 'includes/Login.php';
 
@@ -29,5 +30,6 @@
 		</form>
 	</div>
 </div>
+<a href="http://localhost/rose">testE</a>
 </body>
 </html>

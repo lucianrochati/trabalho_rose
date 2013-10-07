@@ -3,7 +3,7 @@
 class Conexao{
 
 	private $usuario = "root";
-	private $senha = "mais123";
+	private $senha = "email68";
 	private $host = "localhost";
 	private $banco = "financas";
 

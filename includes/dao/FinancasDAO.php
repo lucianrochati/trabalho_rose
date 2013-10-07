@@ -16,8 +16,8 @@ class FinancasDAO extends Conexao{
 			while($resultado = mysql_fetch_array($exec)){
 				$dados[] = $resultado;
 			}
-
-			return $dados;
+			if(isset($dados))
+				return $dados;
 
 
 		 }catch (Exception $e) {
@@ -83,8 +83,8 @@ class FinancasDAO extends Conexao{
 				'1',
 				'{$Array['descReceitaDespesa']}',
 				{$Array['valor']},
-				'".date("d/m/Y")."')";
-
+				'{$Array['data']}')
+				";
 			$exec = mysql_query($sql) or die(mysql_error());
 			
 
@@ -105,6 +105,38 @@ class FinancasDAO extends Conexao{
 					return true;
 				else
 					return false;
+
+
+		 }catch (Exception $e) {
+ 			echo "Exceção pega: ",  $e->getMessage(), "\n";die;
+  		}
+
+
+	}
+
+	public function search($Array){
+		
+		try{
+			if($Array['tipo'] == "0" && $Array['data1'] == "" && $Array['data2'] == "")
+				$sql = "SELECT * FROM receitaDespesa WHERE idTipo = {$Array['tipo']}";
+			elseif($Array['tipo'] != "0" && $Array['data1'] != "" && $Array['data2'] != "")
+				$sql = "SELECT * FROM receitaDespesa WHERE data BETWEEN '{$Array['data1']}' AND '{$Array['data2']}' AND idTipo = {$Array['tipo']}";
+			elseif($Array['data1'] != "" && $Array['data2'] != "")
+				$sql = "SELECT * FROM receitaDespesa WHERE data BETWEEN '{$Array['data1']}' AND '{$Array['data2']}'";
+			else
+				$sql = "SELECT * FROM receitaDespesa WHERE idTipo = {$Array['tipo']} ";
+		
+			$exec = mysql_query($sql) or die(mysql_error());
+	
+			if($exec){
+				
+				while($resultado = mysql_fetch_array($exec)){
+					$dados[] = $resultado;
+				}
+
+			}
+			if(isset($dados))
+				return $dados;
 
 
 		 }catch (Exception $e) {

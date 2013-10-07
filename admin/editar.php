@@ -5,8 +5,8 @@
   
   $financas = new Financas($_GET['codigo']);
   $dados = $financas->getDadosForId();
- 
-  if($_POST['acao'] == "editar"){
+
+  if(isset($_POST['acao']) == "editar"){
     $financas->updateDados($_POST);
   }
 ?>
@@ -16,7 +16,7 @@
     <br>
  <ul class="breadcrumb">
   <li><a href="index.php">Home</a> <span class="divider">/</span></li>
-  <li><a href="index.php">Listar todas Receitas/Despesas</a> <span class="divider">/</span></li>
+  <li><a href="receitas_despesas.php">Listar todas Receitas/Despesas</a> <span class="divider">/</span></li>
   <li class="active">Editando registro</li>
 </ul>
   <form class="form-horizontal" action="" name="editar" method="post">
@@ -26,14 +26,6 @@
 
     <!-- Form Name -->
     <legend>Cadastro Receita/Despesa</legend>
-
-    <!-- Textarea -->
-    <div class="control-group">
-      <label class="control-label" for="descReceitaDespesa">Descrição</label>
-      <div class="controls">                     
-        <textarea id="descReceitaDespesa" name="descReceitaDespesa"><?php echo $dados->getDescricao();?></textarea>
-      </div>
-    </div>
 
     <!-- Select Basic -->
     <div class="control-group">
@@ -52,7 +44,7 @@
     <div class="control-group">
       <label class="control-label" for="valor">Valor</label>
       <div class="controls">
-        <input id="valor" name="valor" type="text" value="<?php echo $dados->getValor();?>"placeholder="R$120,50" class="input-large" required="">
+        <input id="valor" name="valor" type="text" value="<?php echo $dados->getValor();?>"  class="input-large" required="">
         
       </div>
     </div>
@@ -67,11 +59,23 @@
         </span>
       </div>
     </div>
+
+    <!-- Textarea -->
+    <div class="control-group" style="margin-top:20px;">
+      <label class="control-label" for="descReceitaDespesa">Descrição</label>
+      <div class="controls">                     
+        <textarea id="descReceitaDespesa" name="descReceitaDespesa"><?php echo $dados->getDescricao();?></textarea>
+      </div>
+    </div>
+
     <script type="text/javascript">
       $(function() {
-        $('#datetimepicker1').datetimepicker({
-          language: 'pt-BR'
-        });
+        $("#valor").maskMoney();
+
+        $('#datetimepicker1').datepicker({
+          format: "dd/mm/yy",
+         language: 'pt-BR'
+         });
       });
     </script>
     </div>

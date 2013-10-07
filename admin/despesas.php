@@ -42,7 +42,7 @@
           <tr>
             <td><?php echo $get->getCodigo();?></td>
             <td><?php echo $get->getIdUsuario();?></td>
-            <td><?php echo $get->getTipo();?></td>
+              <td><?php if($get->getTipo() == "1") echo "Receitas Fixas"; elseif($get->getTipo() == "2") echo "Receitas Variáveis"; elseif($get->getTipo() == "3") echo "Despesas Fixas"; else echo "Receitas Variáveis"; ?></td>
             <td><?php echo $get->getDescricao();?></td>
             <td><?php echo $get->getValor();?></td>
             <td><?php echo $get->getData();?></td>

@@ -2,18 +2,20 @@
   ini_set("display_errors",1);
   require 'header.php';
   require '../includes/Financas.php';
- if($_POST['acao'] == "cadastrar"){
+
+ if(isset($_POST['acao']) == "cadastrar"){
     $financas = new Financas();
     $financas->insertDados($_POST);
  }
 ?>
+
 <div class="container" style="margin-top:0px; ">
   <?php require 'menu.php';?>
   <div class="meio clearfix">
     <br>
     <ul class="breadcrumb">
   <li><a href="index.php">Home</a> <span class="divider">/</span></li>
-  <li><a href="index.php">Listar todas Receitas/Despesas</a> <span class="divider">/</span></li>
+  <li><a href="receitas_despesas.php">Listar todas Receitas/Despesas</a> <span class="divider">/</span></li>
   <li class="active">Nova Receita/Despesa</li>
 </ul>
   <form class="form-horizontal" action="" name="cadastro" method="post">
@@ -23,13 +25,7 @@
     <!-- Form Name -->
     <legend>Cadastro Receita/Despesa</legend>
 
-    <!-- Textarea -->
-    <div class="control-group">
-      <label class="control-label" for="descReceitaDespesa">Descrição</label>
-      <div class="controls">                     
-        <textarea id="descReceitaDespesa" name="descReceitaDespesa">Descrição...</textarea>
-      </div>
-    </div>
+    
 
     <!-- Select Basic -->
     <div class="control-group">
@@ -48,7 +44,7 @@
     <div class="control-group">
       <label class="control-label" for="valor">Valor</label>
       <div class="controls">
-        <input id="valor" name="valor" type="text" placeholder="R$120,50" class="input-medium" required="">
+        <input id="valor" name="valor" id="valor"type="text" placeholder="R$120,50" class="input-medium" required="">
         
       </div>
     </div>
@@ -58,18 +54,19 @@
          <div id="datetimepicker1" class="input-append date">
         <input data-format="dd/MM/yyyy hh:mm:ss" name="data" id="data" type="text"></input>
         <span class="add-on">
-          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          <i class="icon-calendar" data-date-icon="icon-calendar">
           </i>
         </span>
       </div>
     </div>
-    <script type="text/javascript">
-      $(function() {
-        $('#datetimepicker1').datetimepicker({
-          language: 'pt-BR'
-        });
-      });
-    </script>
+    <!-- Textarea -->
+    <div class="control-group" style="margin-top:20px;">
+      <label class="control-label" for="descReceitaDespesa">Descrição</label>
+      <div class="controls">                     
+        <textarea id="descReceitaDespesa" name="descReceitaDespesa" placeholder="Descrição.."></textarea>
+      </div>
+    </div>
+ 
     </div>
     <!-- Button -->
     <div class="control-group">
@@ -85,3 +82,18 @@
 
   </div>
  </div>
+    <script type="text/javascript">
+      $(function() {
+
+         $('#datetimepicker1').datepicker({
+          format: "dd/mm/yy",
+         language: 'pt-BR'
+         });
+
+
+        $("#valor").maskMoney();
+        $('#datetimepicker1').datetimepicker({
+          language: 'pt-BR'
+        });
+      });
+    </script>

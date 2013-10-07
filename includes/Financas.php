@@ -28,14 +28,15 @@
 			
 			if($retorno)
 				$objeto = $this->montarObjeto($retorno);
-			return $objeto;
+			if(isset($objeto))
+				return $objeto;
 	
 		}
 
 		public function getDadosForId(){
 	
 			$retorno = $this->FinancasDAO->selectForId($this->termo);
-			
+
 			if($retorno)
 				$objeto = $this->montarObjeto($retorno);
 			return $objeto[0];
@@ -75,9 +76,15 @@
 
 
 		}
-		public function search(){
+		public function search($array){
 
-				echo $this->termo;
+			$this->termo = $array;
+			$retorno = $this->FinancasDAO->search($this->termo);
+			
+			if($retorno)
+				$objeto = $this->montarObjeto($retorno);
+			if(isset($objeto))
+				return $objeto;
 
 		}
 		protected function montarObjeto(Array $Array){
@@ -85,17 +92,17 @@
 			foreach($Array as $k => $get){
 				$Financas = new self(1);
 
-				if($get['idReceitaDespesa']) 
+				if(isset($get['idReceitaDespesa']))
 					$Financas->setCodigo($get['idReceitaDespesa']);
-				if($get['idTipo']) 
+				if(isset($get['idTipo']))
 					$Financas->setTipo($get['idTipo']);
-				if($get['idUsuario']) 
+				if(isset($get['idUsuario']))
 					$Financas->setIdUsuario($get['idUsuario']);
-				if($get['descReceitaDespesa']) 
+				if(isset($get['descReceitaDespesa'])) 
 					$Financas->setDescricao($get['descReceitaDespesa']);
-				if($get['valor'])
+				if(isset($get['valor']))
 					$Financas->setValor($get['valor']);
-				if($get['data'])
+				if(isset($get['data']))
 					$Financas->setData($get['data']);
 
 				$list[] = $Financas;

@@ -3,45 +3,104 @@
 
 	class Financas{
 
-		public $FinancasDAO;
-		public $codigo;
-		public $codUsuario;
-		public $tipo;
-		public $idUsuario;
-		public $descricao;
-		public $valor;
-		public $data;
-		public $termo = "";
+		private $FinancasDAO;
+		private $codigo;
+		private $codUsuario;
+		private $tipo;
+		private $idUsuario;
+		private $descricao;
+		private $valor;
+		private $data;
+		private $termo = "";
 
-		public function __construct($termo){
+		public function __construct($termo = false){
 
 			if($termo)
 				$this->termo = $termo;
 
 			$this->FinancasDAO = new FinancasDAO();
+		
 		}
 
 		public function getDados(){
-
+	
 			$retorno = $this->FinancasDAO->select($this->termo);
+			
 			if($retorno)
-				$receitas = $this->montarObjeto($retorno);
-			return $receitas;
+				$objeto = $this->montarObjeto($retorno);
+			return $objeto;
 	
 		}
 
-		public function montarObjeto(Array $array){
+		public function getDadosForId(){
+	
+			$retorno = $this->FinancasDAO->selectForId($this->termo);
 			
-			foreach($array as $k => $get){
+			if($retorno)
+				$objeto = $this->montarObjeto($retorno);
+			return $objeto[0];
+	
+		}
+
+		
+		public function updateDados($Array){
+
+			$retorno = $this->FinancasDAO->update($Array);
+			if($retorno)
+					$this->retornoJS("", "Edição realizada com sucesso!!!");
+				else
+					$this->retornoJS("", "Houve um erro ao tentar executar sua solicitação");
+
+		}
+
+		public function insertDados($Array){
+	
+			if($Array){
+				$retorno = $this->FinancasDAO->insert($Array);
+				return $this->retornoJS("","Registro inserido com sucesso!!!");
+			}
+			
+
+		}
+
+		public function removeDados($Array){
+
+			if($Array){
+				$retorno = $this->FinancasDAO->remove($Array);
+				if($retorno)
+						$this->retornoJS("","Remoção realizada com sucesso!!");
+					else
+						$this->retornoJS("","Houve ao tentar remover esse registro, tente novamente mais tarde!!");
+			}
+
+
+		}
+		public function search(){
+
+				echo $this->termo;
+
+		}
+		protected function montarObjeto(Array $Array){
+		
+			foreach($Array as $k => $get){
 				$Financas = new self(1);
-				$Financas->setCodigo($get['idReceitaDespesa']);
-				$Financas->setTipo($get['idTipo']);
-				$Financas->setIdUsuario($get['idUsuario']);
-				$Financas->setDescricao($get['descReceitaDespesa']);
-				$Financas->setValor($get['valor']);
-				$Financas->setData($get['data']);
+
+				if($get['idReceitaDespesa']) 
+					$Financas->setCodigo($get['idReceitaDespesa']);
+				if($get['idTipo']) 
+					$Financas->setTipo($get['idTipo']);
+				if($get['idUsuario']) 
+					$Financas->setIdUsuario($get['idUsuario']);
+				if($get['descReceitaDespesa']) 
+					$Financas->setDescricao($get['descReceitaDespesa']);
+				if($get['valor'])
+					$Financas->setValor($get['valor']);
+				if($get['data'])
+					$Financas->setData($get['data']);
+
 				$list[] = $Financas;
 			}
+
 			return $list;
 		}
 
@@ -95,6 +154,21 @@
 
 		public function getData(){
 			return $this->data;
+		}
+
+		public function retornoJS($url, $msg){
+
+			if(!$url && !$msg){
+				
+				$url  = $_SERVER['HTTP_REFERER'];
+				$msg  = "Comando executado com sucesso!";
+				die("<script>alert('{$msg}');window.location='{$url}';</script>");
+
+			}else{
+				die("<script>alert('{$msg}');window.location='{$_SERVER['HTTP_REFERER']}';</script>");
+			}
+
+			
 		}
 
 	}

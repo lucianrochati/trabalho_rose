@@ -3,7 +3,7 @@
   require 'header.php';
   require '../includes/Despesas.php';    
 
-  $despesas = new Despesas("1,2");
+  $despesas = new Despesas("1,2,3,4");
   $financas = new Financas();
 
   $dados = $despesas->listarDespesas();
@@ -20,7 +20,7 @@
     <li class="active">Despesas</li>
     
   </ul>
-  <h2>Listando todas as Despesas</h2><br>
+  <h2>Listando todas as Receitas/Despesas</h2><br>
    
     <table class="table table-striped" style="margin-top:10px;">
       <tr>

@@ -1,6 +1,5 @@
 <?php 
 	session_start();
-	print_r($_SERVER);
 	require 'admin/header.php';
 	require 'includes/Login.php';
 
@@ -14,6 +13,47 @@
 	}
 
 ?>
+
+<!-- Form Name -->
+<legend>Cadastro Receita/Despesa</legend>
+
+<!-- Textarea -->
+<div class="control-group">
+  <label class="control-label" for="descRceitaDespesa">Descrição</label>
+  <div class="controls">                     
+    <textarea id="descRceitaDespesa" name="descRceitaDespesa">Descrição...</textarea>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="control-group">
+  <label class="control-label" for="idTipo">Tipo</label>
+  <div class="controls">
+    <select id="idTipo" name="idTipo" class="input-medium">
+      <option>Receitas Fixas</option>
+      <option>Receitas Variáveis</option>
+      <option>Despesas Fixas</option>
+      <option>Despesas Variáveis</option>
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="valor">Valor</label>
+  <div class="controls">
+    <input id="valor" name="valor" type="text" placeholder="R$120,50" class="input-medium" required="">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label" for="salvar"></label>
+  <div class="controls">
+    <button id="salvar" name="salvar" class="btn btn-success">Cadastrar</button>
+  </div>
+</div>
 <div class="container">
 	<div class="meioLogin">
 		<form class="form-inline" role="form" method="post">

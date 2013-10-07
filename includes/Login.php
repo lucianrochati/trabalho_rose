@@ -1,5 +1,6 @@
 <?php
 require_once 'dao/LoginDAO.php';
+
 class Login{
 
 	public $usuario;

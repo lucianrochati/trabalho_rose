@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 3.4.11.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 02/10/2013 às 17h53min
+-- Tempo de Geração: 08/10/2013 às 16:31:16
 -- Versão do Servidor: 5.5.32
--- Versão do PHP: 5.3.10-1ubuntu3.8
+-- Versão do PHP: 5.4.6-1ubuntu1.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,12 +31,22 @@ CREATE TABLE IF NOT EXISTS `receitaDespesa` (
   `idTipo` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
   `descReceitaDespesa` varchar(30) NOT NULL,
-  `vaLor` float NOT NULL,
+  `valor` float NOT NULL,
   `data` varchar(10) NOT NULL,
   PRIMARY KEY (`idReceitaDespesa`),
   KEY `FK_usuario` (`idUsuario`),
   KEY `FK_tipo` (`idTipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Extraindo dados da tabela `receitaDespesa`
+--
+
+INSERT INTO `receitaDespesa` (`idReceitaDespesa`, `idTipo`, `idUsuario`, `descReceitaDespesa`, `valor`, `data`) VALUES
+(3, 1, 1, 'teste', 850.21, '07/10/13'),
+(5, 3, 1, 'Boleto net', 89.69, '03/10/13'),
+(6, 3, 1, 'testando...', 10.96, '05/11/13'),
+(7, 1, 1, 'rwste', 145.88, '07/10/13');
 
 -- --------------------------------------------------------
 
@@ -48,7 +58,17 @@ CREATE TABLE IF NOT EXISTS `tipo` (
   `idTipo` int(11) NOT NULL AUTO_INCREMENT,
   `descTipo` varchar(30) NOT NULL,
   PRIMARY KEY (`idTipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Extraindo dados da tabela `tipo`
+--
+
+INSERT INTO `tipo` (`idTipo`, `descTipo`) VALUES
+(1, 'Despesas Fixas'),
+(2, 'Despesas Variáveis'),
+(3, 'Reecitas Fixas'),
+(4, 'Receitas Variáveis');
 
 -- --------------------------------------------------------
 
@@ -79,8 +99,8 @@ INSERT INTO `usuario` (`idUsuario`, `nomeUsuario`, `login`, `senha`) VALUES
 -- Restrições para a tabela `receitaDespesa`
 --
 ALTER TABLE `receitaDespesa`
-  ADD CONSTRAINT `FK_usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
-  ADD CONSTRAINT `FK_tipo` FOREIGN KEY (`idTipo`) REFERENCES `tipo` (`idTipo`);
+  ADD CONSTRAINT `FK_tipo` FOREIGN KEY (`idTipo`) REFERENCES `tipo` (`idTipo`),
+  ADD CONSTRAINT `FK_usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
